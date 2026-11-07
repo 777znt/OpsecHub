@@ -1,0 +1,11 @@
+[
+  {
+    "id": "admin-root",
+    "username": "root",
+    "isAdmin": true,
+    "isBanned": false,
+    "canDownload": true,
+    "role": "admin",
+    "registered": "2026-11-07T14:11:27.092Z"
+  }
+]

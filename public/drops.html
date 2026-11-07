@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Drops — OpsecStudios</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:#07040f;color:#f5f0ff;padding:40px 20px}
+a{color:#c084fc}h1{font-weight:800;letter-spacing:1px}
+.card{background:#16102a;border:1px solid #2a1d45;border-radius:12px;padding:16px;margin:12px 0}
+.meta{font-size:.75rem;color:#7c6b9e;margin-top:8px}
+</style>
+</head>
+<body>
+<p><a href="/">← OpsecStudios</a></p>
+<h1>Public drops</h1>
+<p style="color:#7c6b9e">Changelog entries (no login required).</p>
+<div id="list">Loading…</div>
+<script>
+fetch('/api/public/changelog').then(r=>r.json()).then(list=>{
+  const el=document.getElementById('list');
+  if(!list.length){el.innerHTML='<p style="color:#7c6b9e">No public drops yet.</p>';return}
+  el.innerHTML=list.map(c=>`<div class="card"><strong>${c.folder||''}</strong> ${c.version?('v'+c.version):''} ${c.file||''}<div>${c.notes||''}</div><div class="meta">${c.author||''} · ${new Date(c.at).toLocaleString()}</div></div>`).join('');
+}).catch(()=>{document.getElementById('list').textContent='Failed to load';});
+</script>
+</body>
+</html>

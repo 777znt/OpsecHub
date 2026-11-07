@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPSECSTUDIOS Panel</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+:root{--bg:#07040f;--bg2:#0c0818;--card:#16102a;--border:#2a1d45;--purple:#a855f7;--purple2:#7c3aed;--purple3:#c084fc;--text:#f5f0ff;--text2:#c4b5fd;--muted:#7c6b9e;--success:#34d399;--danger:#f43f5e}
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--text);height:100vh;overflow:hidden}
+.shell{display:flex;height:100%}.sidebar{width:220px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.brand{padding:16px;font-size:.78rem;font-weight:800;letter-spacing:2px;color:var(--purple3);text-transform:uppercase;border-bottom:1px solid var(--border)}
+.nav{flex:1;overflow:auto;padding:8px}.nav-label{font-size:.6rem;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding:10px 8px 4px}
+.nav a{display:flex;gap:8px;align-items:center;padding:8px;border-radius:8px;color:var(--text2);text-decoration:none;font-size:.76rem;font-weight:700}
+.nav a:hover,.nav a.active{background:rgba(168,85,247,.14);color:var(--purple3)}
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:48px;padding:0 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.topbar h1{font-size:.8rem;font-weight:800;letter-spacing:1px;text-transform:uppercase}
+.content{flex:1;overflow:auto;padding:20px}
+.page{display:none}.page.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px}
+.card-title{font-size:.68rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--purple3);margin-bottom:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:8px;font-size:.72rem;font-weight:700;border:none;cursor:pointer;background:linear-gradient(135deg,var(--purple),var(--purple2));color:#fff}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--text2)}
+.badge{padding:2px 8px;border-radius:20px;font-size:.62rem;font-weight:800}.badge-on{background:rgba(52,211,153,.15);color:var(--success)}.badge-off{background:rgba(244,63,94,.12);color:var(--danger)}.badge-admin{background:rgba(168,85,247,.2);color:var(--purple3)}
+.file-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:10px}
+.file-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;font-size:.75rem}
+input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px;color:var(--text);margin-bottom:8px;font-family:inherit;font-size:.8rem}
+.chat-box{height:340px;display:flex;flex-direction:column;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.chat-msgs{flex:1;overflow:auto;padding:12px}.msg{margin-bottom:8px;padding:8px 10px;border-radius:10px;max-width:75%;font-size:.8rem}
+.msg.me{background:linear-gradient(135deg,var(--purple),var(--purple2));margin-left:auto}.msg.other{background:var(--card);border:1px solid var(--border)}
+.chat-input{display:flex;gap:8px;padding:8px;border-top:1px solid var(--border)}
+.empty{color:var(--muted);text-align:center;padding:24px;font-size:.85rem}
+.profile{padding:10px;border-top:1px solid var(--border)}
+.profile button{width:100%;background:transparent;border:1px solid transparent;color:var(--text);padding:8px;border-radius:8px;cursor:pointer;font-weight:700;font-size:.75rem;text-align:left}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="sidebar">
+  <div class="brand">OpsecStudios</div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a href="#" data-page="home" class="active"><i class="fas fa-home"></i> Home</a>
+    <a href="#" data-page="chats"><i class="fas fa-comments"></i> Chats</a>
+    <a href="#" data-page="announcement"><i class="fas fa-bullhorn"></i> Announcement</a>
+    <div class="nav-label">Files</div>
+    <a href="#" data-page="botflood"><i class="fas fa-water"></i> BotFlood</a>
+    <a href="#" data-page="discordtools"><i class="fab fa-discord"></i> DiscordTools</a>
+    <a href="#" data-page="backdoor"><i class="fas fa-door-open"></i> Backdoor</a>
+    <a href="#" data-page="opsecgay"><i class="fas fa-terminal"></i> Opsecgay</a>
+    <a href="#" data-page="discordrat"><i class="fab fa-discord"></i> Discord RAT</a>
+    <a href="#" data-page="minecraftcheats"><i class="fas fa-cube"></i> Minecraft Cheats</a>
+    <div class="nav-label">More</div>
+    <a href="#" data-page="search"><i class="fas fa-search"></i> Search</a>
+    <a href="#" data-page="tickets"><i class="fas fa-ticket"></i> Tickets</a>
+    <a href="#" data-page="giveaway"><i class="fas fa-gift"></i> Giveaway</a>
+    <div id="admin-nav" style="display:none">
+      <div class="nav-label">Admin</div>
+      <a href="#" data-page="users"><i class="fas fa-users"></i> Users</a>
+      <a href="#" data-page="iplogs"><i class="fas fa-network-wired"></i> IP Logs</a>
+      <a href="#" data-page="audit"><i class="fas fa-list"></i> Audit</a>
+      <a href="#" data-page="codes"><i class="fas fa-key"></i> Codes</a>
+      <a href="#" data-page="maintenance"><i class="fas fa-gear"></i> Maintenance</a>
+    </div>
+  </nav>
+  <div class="profile"><button onclick="logout()" id="user-btn">Logout</button></div>
+</aside>
+<main class="main">
+  <div class="topbar"><h1 id="page-title">Home</h1><div id="top-badge"></div></div>
+  <div class="content">
+    <section id="home" class="page active"><div class="card"><div class="card-title">Welcome</div><p>Owner: <strong style="color:var(--purple3)">777znt</strong></p></div></section>
+    <section id="chats" class="page"><div class="card"><div class="card-title">Chat</div><div class="chat-box"><div class="chat-msgs" id="chat-msgs"></div><div class="chat-input"><input id="chat-input" placeholder="Message..."><button class="btn" onclick="sendChat()">Send</button></div></div></div></section>
+    <section id="announcement" class="page"><div id="ann-admin" style="display:none" class="card"><div class="card-title">New</div><input id="ann-title" placeholder="Title"><textarea id="ann-body" rows="2" placeholder="Body"></textarea><button class="btn" onclick="postAnn()">Post</button></div><div id="ann-list"></div></section>
+    <section id="botflood" class="page"><div class="card"><div class="card-title">BotFlood <span class="badge" id="botflood-status"></span></div></div><div class="file-grid" id="botflood-files"></div></section>
+    <section id="discordtools" class="page"><div class="card"><div class="card-title">DiscordTools <span class="badge" id="discordtools-status"></span></div></div><div class="file-grid" id="discordtools-files"></div></section>
+    <section id="backdoor" class="page"><div class="card"><div class="card-title">Backdoor <span class="badge" id="backdoor-status"></span></div></div><div class="file-grid" id="backdoor-files"></div></section>
+    <section id="opsecgay" class="page"><div class="card"><div class="card-title">Opsecgay <span class="badge" id="opsecgay-status"></span></div><p style="color:var(--purple3);font-size:.85rem;margin-top:8px">dm 777znts to have an registered account.</p></div><div class="file-grid" id="opsecgay-files"></div></section>
+    <section id="discordrat" class="page"><div class="card"><div class="card-title">Discord RAT <span class="badge" id="discordrat-status"></span></div></div><div class="file-grid" id="discordrat-files"></div></section>
+    <section id="minecraftcheats" class="page"><div class="card"><div class="card-title">Minecraft Cheats <span class="badge" id="minecraftcheats-status"></span></div></div><div class="file-grid" id="minecraftcheats-files"></div></section>
+    <section id="search" class="page"><div class="card"><div class="card-title">Search</div><div style="display:flex;gap:8px"><input id="search-q" placeholder="filename"><button class="btn" onclick="doSearch()">Go</button></div><div id="search-results"></div></div></section>
+    <section id="tickets" class="page"><div class="card"><div class="card-title">Ticket</div><input id="ticket-subject" placeholder="Subject"><textarea id="ticket-body" rows="2"></textarea><button class="btn" onclick="submitTicket()">Submit</button></div><div id="ticket-list"></div></section>
+    <section id="giveaway" class="page"><div id="gw-admin" style="display:none" class="card"><div class="card-title">Create</div><input id="gw-prize" placeholder="Prize"><input id="gw-ends" type="datetime-local"><button class="btn" onclick="createGw()">Create</button></div><div id="gw-list"></div></section>
+    <section id="users" class="page"><div class="card"><div class="card-title">Users</div><div id="users-list"></div></div></section>
+    <section id="iplogs" class="page"><div class="card"><div class="card-title">IP Logs</div><div id="ip-list"></div></div></section>
+    <section id="audit" class="page"><div class="card"><div class="card-title">Audit</div><div id="audit-list"></div></div></section>
+    <section id="codes" class="page"><div class="card"><div class="card-title">Codes</div><button class="btn" onclick="createCode()">Generate 30d code</button><div id="codes-list" style="margin-top:12px"></div></div></section>
+    <section id="maintenance" class="page"><div class="card"><div class="card-title">Maintenance</div><button class="btn btn-secondary" onclick="toggleMaint()">Toggle</button> <span id="maint-label"></span><div style="margin-top:12px"><button class="btn" onclick="downloadBackup()">Backup JSON</button></div></div></section>
+  </div>
+</main>
+</div>
+<script>
+let me=null,isAdmin=false,CSRF='';
+const folders=['botflood','discordtools','backdoor','opsecgay','discordrat','minecraftcheats'];
+const titles={home:'Home',chats:'Chats',announcement:'Announcement',botflood:'BotFlood',discordtools:'DiscordTools',backdoor:'Backdoor',opsecgay:'Opsecgay',discordrat:'Discord RAT',minecraftcheats:'Minecraft Cheats',search:'Search',tickets:'Tickets',giveaway:'Giveaway',users:'Users',iplogs:'IP Logs',audit:'Audit',codes:'Codes',maintenance:'Maintenance'};
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+async function ensureCsrf(){if(CSRF)return;try{const c=await fetch('/api/csrf',{credentials:'include'}).then(r=>r.json());CSRF=c.token||''}catch{}}
+async function api(path,opts={}){
+  await ensureCsrf();
+  const headers={'Content-Type':'application/json','x-csrf-token':CSRF,...(opts.headers||{})};
+  let r=await fetch(path,{credentials:'include',headers,...opts});
+  if(r.status===403){const b=await r.clone().json().catch(()=>({}));if(b.error==='CSRF'){CSRF='';await ensureCsrf();headers['x-csrf-token']=CSRF;r=await fetch(path,{credentials:'include',headers,...opts})}}
+  if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||r.statusText);
+  return r.json();
+}
+async function boot(){
+  try{
+    await ensureCsrf();
+    me=await api('/api/me');if(me.csrf)CSRF=me.csrf;isAdmin=!!me.isAdmin;
+    document.getElementById('user-btn').textContent=me.username+' · Logout';
+    if(isAdmin){document.getElementById('admin-nav').style.display='block';document.getElementById('ann-admin').style.display='block';document.getElementById('gw-admin').style.display='block';document.getElementById('top-badge').innerHTML='<span class="badge badge-admin">Admin</span>'}
+  }catch{location.href='/'}
+}
+function logout(){fetch('/auth/logout',{method:'POST',credentials:'include'}).finally(()=>location.href='/')}
+document.querySelectorAll('.nav a[data-page]').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();document.querySelectorAll('.nav a').forEach(x=>x.classList.remove('active'));a.classList.add('active');
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const page=a.dataset.page;document.getElementById(page).classList.add('active');document.getElementById('page-title').textContent=titles[page]||page;
+  if(page==='chats')loadChat();if(page==='announcement')loadAnn();if(folders.includes(page))loadFiles(page);
+  if(page==='tickets')loadTickets();if(page==='giveaway')loadGw();if(page==='users')loadUsers();
+  if(page==='iplogs')loadIp();if(page==='audit')loadAudit();if(page==='codes')loadCodes();if(page==='maintenance')loadMaint();
+}));
+async function loadFiles(folder){
+  const data=await api('/api/files/'+folder);
+  const st=document.getElementById(folder+'-status');st.textContent=data.unlocked?'Unlocked':'Locked';st.className='badge '+(data.unlocked?'badge-on':'badge-off');
+  const grid=document.getElementById(folder+'-files');
+  if(!data.files.length){grid.innerHTML='<div class="empty">No files</div>';return}
+  grid.innerHTML=data.files.map(f=>{
+    const size=f.size>1048576?(f.size/1048576).toFixed(1)+' MB':(f.size/1024).toFixed(1)+' KB';
+    return `<div class="file-card"><div style="font-weight:700;word-break:break-all">${esc(f.name)}</div><div style="color:var(--muted);font-size:.68rem;margin:4px 0">${size}${f.version?' · v'+esc(f.version):''}</div>${data.unlocked?`<a class="btn" href="/api/files/${folder}/${encodeURIComponent(f.name)}">Download</a>`:'🔒'}</div>`;
+  }).join('');
+}
+async function loadChat(){const msgs=await api('/api/chat');const box=document.getElementById('chat-msgs');box.innerHTML=msgs.map(m=>`<div class="msg ${m.authorId===me.id?'me':'other'}"><div style="font-size:.65rem;opacity:.8">${esc(m.authorName)}</div>${esc(m.content)}</div>`).join('');box.scrollTop=box.scrollHeight}
+async function sendChat(){const input=document.getElementById('chat-input');const content=input.value.trim();if(!content)return;await api('/api/chat',{method:'POST',body:JSON.stringify({content})});input.value='';loadChat()}
+document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat()});
+async function loadAnn(){const list=await api('/api/announcements');document.getElementById('ann-list').innerHTML=list.length?list.map(a=>`<div class="card"><strong>${esc(a.title)}</strong><p style="margin-top:6px;font-size:.85rem">${esc(a.body)}</p></div>`).join(''):'<div class="empty">None</div>'}
+async function postAnn(){const title=document.getElementById('ann-title').value.trim();const body=document.getElementById('ann-body').value.trim();if(!title||!body)return;await api('/api/announcements',{method:'POST',body:JSON.stringify({title,body})});loadAnn()}
+async function doSearch(){const q=document.getElementById('search-q').value.trim();if(!q)return;const list=await api('/api/files-search?q='+encodeURIComponent(q));document.getElementById('search-results').innerHTML=list.map(f=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:.8rem">${esc(f.folder)} / ${esc(f.name)}</div>`).join('')||'<div class="empty">No matches</div>'}
+async function loadTickets(){const list=await api('/api/tickets');document.getElementById('ticket-list').innerHTML=list.map(t=>`<div class="card"><strong>${esc(t.subject)}</strong> <span class="badge ${t.status==='open'?'badge-off':'badge-on'}">${t.status}</span><p style="margin-top:6px;font-size:.85rem">${esc(t.body)}</p></div>`).join('')||'<div class="empty">None</div>'}
+async function submitTicket(){const subject=document.getElementById('ticket-subject').value.trim();const body=document.getElementById('ticket-body').value.trim();if(!subject||!body)return;await api('/api/tickets',{method:'POST',body:JSON.stringify({subject,body})});loadTickets()}
+async function loadGw(){const list=await api('/api/giveaways');document.getElementById('gw-list').innerHTML=list.map(g=>`<div class="card"><strong style="color:var(--purple3)">${esc(g.prize)}</strong><div style="font-size:.75rem;color:var(--muted)">${g.entries.length} entries</div>${g.isActive?`<button class="btn" style="margin-top:8px" onclick="api('/api/giveaways/${g.id}/join',{method:'POST'}).then(loadGw).catch(e=>alert(e.message))">Join</button>`:''}${isAdmin&&g.isActive?`<button class="btn btn-secondary" style="margin-top:8px" onclick="api('/api/giveaways/${g.id}/draw',{method:'POST'}).then(loadGw)">Draw</button>`:''}</div>`).join('')||'<div class="empty">None</div>'}
+async function createGw(){const prize=document.getElementById('gw-prize').value.trim();const endsAt=document.getElementById('gw-ends').value;if(!prize||!endsAt)return;await api('/api/giveaways',{method:'POST',body:JSON.stringify({prize,endsAt})});loadGw()}
+async function loadUsers(){const list=await api('/api/admin/users');document.getElementById('users-list').innerHTML=list.map(u=>`<div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:.8rem">${esc(u.username)} · ${esc(u.id)} · ${u.canDownload?'clients ON':'off'}</div>`).join('')}
+async function loadIp(){const list=await api('/api/admin/iplogs');document.getElementById('ip-list').innerHTML=list.map(l=>`<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.78rem"><code>${esc(l.ip)}</code> · ${esc(l.location)} · ${esc(l.username)}</div>`).join('')}
+async function loadAudit(){const list=await api('/api/admin/audit');document.getElementById('audit-list').innerHTML=list.map(a=>`<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:.78rem">${esc(a.action)} · ${esc(a.actor)}</div>`).join('')}
+async function loadCodes(){const list=await api('/api/admin/codes');document.getElementById('codes-list').innerHTML=list.map(c=>`<div style="padding:6px 0;font-size:.8rem"><code>${esc(c.code)}</code> · ${c.days}d · ${c.usedBy?'used':'open'}</div>`).join('')}
+async function createCode(){await api('/api/admin/codes',{method:'POST',body:JSON.stringify({days:30})});loadCodes()}
+async function loadMaint(){const s=await fetch('/api/settings').then(r=>r.json());document.getElementById('maint-label').textContent=s.maintenance?'ON':'OFF'}
+async function toggleMaint(){const s=await fetch('/api/settings').then(r=>r.json());await api('/api/admin/maintenance',{method:'POST',body:JSON.stringify({enabled:!s.maintenance})});loadMaint()}
+async function downloadBackup(){const r=await fetch('/api/admin/backup',{credentials:'include',headers:{'x-csrf-token':CSRF}});const blob=await r.blob();const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='opsec-backup.json';a.click()}
+boot();
+</script>
+</body>
+</html>

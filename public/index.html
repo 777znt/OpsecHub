@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPSECSTUDIOS - by 777znt</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #07040f; --card: #16102a; --border: #2a1d45;
+  --purple: #a855f7; --purple2: #7c3aed; --purple3: #c084fc;
+  --text: #f5f0ff; --muted: #7c6b9e; --success: #34d399;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg); color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(ellipse 90% 50% at 50% -15%, rgba(124,58,237,.22) 0%, transparent 55%),
+    radial-gradient(circle at 90% 60%, rgba(168,85,247,.07) 0%, transparent 40%);
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(7,4,15,.8); backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(42,29,69,.55);
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 800; font-size: .88rem; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--purple3); text-decoration: none;
+}
+.brand-icon {
+  width: 32px; height: 32px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--purple), var(--purple2));
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: .85rem;
+}
+.nav-links {display: flex; align-items: center; gap: 22px; }
+.nav-links a {
+  color: var(--muted); text-decoration: none; font-size: .8rem; font-weight: 600; transition: .15s;
+}
+.nav-links a:hover { color: var(--text); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 18px; border-radius: 10px; font-weight: 700; font-size: .82rem;
+  border: none; cursor: pointer; text-decoration: none; transition: .2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--purple2)); color: #fff;
+  box-shadow: 0 4px 18px rgba(168,85,247,.35);
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-ghost {
+  background: transparent; border: 1px solid var(--border); color: var(--text);
+}
+.hero {
+  min-height: 92vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 120px 24px 80px;
+}
+.badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 20px; font-size: .7rem; font-weight: 700;
+  letter-spacing: .6px; text-transform: uppercase;
+  background: rgba(168,85,247,.12); border: 1px solid rgba(168,85,247,.3); color: var(--purple3);
+  margin-bottom: 22px;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 800;
+  letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 16px;
+  background: linear-gradient(135deg, #fff 25%, var(--purple3));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero .sub {
+  font-size: 1.1rem; color: var(--muted); max-width: 540px; line-height: 1.65; margin-bottom: 12px;
+}
+.owner { font-size: .85rem; color: var(--muted); margin-bottom: 32px; }
+.owner strong { color: var(--purple3); }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+section { padding: 72px 24px; max-width: 1100px; margin: 0 auto; }
+.section-label {
+  font-size: .68rem; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase;
+  color: var(--purple3); margin-bottom: 10px;
+}
+.section-title { font-size: 1.6rem; font-weight: 800; margin-bottom: 12px; }
+.section-desc { color: var(--muted); font-size: .95rem; max-width: 520px; line-height: 1.55; margin-bottom: 32px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+.card {
+  background: rgba(22,16,42,.75); border: 1px solid var(--border); border-radius: 14px;
+  padding: 22px; transition: .2s;
+}
+.card:hover { border-color: rgba(168,85,247,.4); transform: translateY(-3px); }
+.card .icon {
+  width: 42px; height: 42px; border-radius: 11px;
+  background: rgba(168,85,247,.12); border: 1px solid rgba(168,85,247,.2);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--purple3); font-size: 1.1rem; margin-bottom: 14px;
+}
+.card h3 {
+  font-size: .9rem; font-weight: 800; letter-spacing: .3px; text-transform: uppercase; margin-bottom: 8px;
+}
+.card p { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+.tag {
+  display: inline-block; margin-top: 12px; font-size: .65rem; font-weight: 700;
+  letter-spacing: .5px; text-transform: uppercase; padding: 3px 8px; border-radius: 6px;
+}
+.tag-free { background: rgba(52,211,153,.12); color: var(--success); }
+.tag-paid { background: rgba(234,179,8,.15); color: #eab308; }
+.tag-lock { background: rgba(168,85,247,.12); color: var(--purple3); }
+.paid-box {
+  background: linear-gradient(135deg, rgba(168,85,247,.12), rgba(124,58,237,.05));
+  border: 1px solid rgba(168,85,247,.3); border-radius: 16px; padding: 32px;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px;
+  max-width: 1100px; margin: 0 auto;
+}
+.about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; }
+@media (max-width: 720px) {
+  .about-grid { grid-template-columns: 1fr; }
+  nav { padding: 14px 18px; }
+  .nav-links a { display: none; }
+}
+.about-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px;
+}
+.about-card h3 { font-size: 1rem; font-weight: 800; margin-bottom: 10px; }
+.about-card p { color: var(--muted); font-size: .88rem; line-height: 1.6; margin-bottom: 10px; }
+.owner-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: 8px; padding: 8px 14px; border-radius: 10px;
+  background: rgba(168,85,247,.1); border: 1px solid rgba(168,85,247,.25);
+  font-weight: 700; font-size: .85rem; color: var(--purple3);
+}
+footer {
+  text-align: center; padding: 36px 20px; font-size: .75rem; color: var(--muted);
+  border-top: 1px solid var(--border); margin-top: 40px;
+}
+footer strong { color: var(--purple3); }
+.modal-bg {
+  position: fixed; inset: 0; background: rgba(0,0,0,.72); display: none;
+  align-items: center; justify-content: center; z-index: 100; backdrop-filter: blur(6px);
+}
+.modal-bg.show { display: flex; }
+.modal {
+  background: var(--card); border: 1px solid rgba(168,85,247,.3); border-radius: 16px;
+  padding: 28px; width: 90%; max-width: 380px;
+}
+.modal h3 {
+  font-size: .95rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;
+}
+.modal p { color: var(--muted); font-size: .82rem; margin-bottom: 16px; }
+.modal input {
+  width: 100%; background: #0c0818; border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; color: var(--text); font-size: .9rem; outline: none; margin-bottom: 12px;
+  font-family: inherit;
+}
+.modal input:focus { border-color: var(--purple); }
+.modal .err { color: #f43f5e; font-size: .78rem; margin-bottom: 10px; display: none; }
+.modal .actions { display: flex; gap: 8px; justify-content: flex-end; }
+.btn-sm {
+  padding: 10px 16px; border-radius: 9px; font-weight: 700; font-size: .8rem; border: none; cursor: pointer;
+}
+.maint-banner {
+  display: none; background: rgba(234,179,8,.12); border-bottom: 1px solid rgba(234,179,8,.3);
+  color: #eab308; text-align: center; padding: 10px; font-size: .85rem; font-weight: 700;
+}
+.ticker {
+  display: none; overflow: hidden; background: rgba(168,85,247,.08);
+  border-bottom: 1px solid var(--border); padding: 8px 0; white-space: nowrap;
+}
+.ticker-track {
+  display: inline-block; padding-left: 100%; animation: ticker 28s linear infinite;
+  font-size: .8rem; font-weight: 600; color: var(--purple3);
+}
+@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+</style>
+</head>
+<body>
+<div class="maint-banner" id="maint-banner"></div>
+<div class="ticker" id="ticker-wrap"><div class="ticker-track" id="ticker-track"></div></div>
+
+<nav>
+  <a class="brand" href="/">
+    <div class="brand-icon"><i class="fas fa-shield-halved"></i></div>
+    OpsecStudios
+  </a>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#discord">Discord</a>
+    <a href="#paid">Paid Files</a>
+    <a href="#about">About</a>
+    <a href="/drops.html">Drops</a>
+    <button class="btn btn-primary" onclick="openLogin()"><i class="fas fa-key"></i> Enter Panel</button>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="badge">
+    <span style="width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 8px var(--success)"></span>
+    Systems online
+  </div>
+  <h1>OpsecStudios</h1>
+  <p class="sub">Private toolkit hub — raid utilities, Discord tools, backdoors, Minecraft cheats, and paid releases.</p>
+  <p class="owner">Owned and operated by <strong>777znt</strong></p>
+  <div class="hero-cta">
+    <button class="btn btn-primary" onclick="openLogin()"><i class="fas fa-right-to-bracket"></i> Enter Panel</button>
+    <a class="btn btn-ghost" href="#tools">Browse tools</a>
+  </div>
+</section>
+
+<section id="tools">
+  <div class="section-label">Library</div>
+  <h2 class="section-title">Tools folder</h2>
+  <p class="section-desc">Organized packs inside the panel. Enter with your session key to download.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="icon"><i class="fas fa-water"></i></div>
+      <h3>BotFlood</h3>
+      <p>Mass / flood utilities and related configs.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fab fa-discord"></i></div>
+      <h3>DiscordTools</h3>
+      <p>Discord-side helpers, scripts, and automation kits.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fas fa-door-open"></i></div>
+      <h3>Backdoor</h3>
+      <p>Backdoor utilities and supporting payloads.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fas fa-terminal"></i></div>
+      <h3>Opsecgay</h3>
+      <p>Operator pack. dm 777znts for a registered account.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fab fa-discord"></i></div>
+      <h3>Discord RAT</h3>
+      <p>Discord RAT builds and related modules.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fas fa-cube"></i></div>
+      <h3>Minecraft Cheats</h3>
+      <p>Clients, modules, and MC-side tools.</p>
+      <span class="tag tag-lock">Panel access</span>
+    </div>
+  </div>
+</section>
+
+<section id="discord">
+  <div class="section-label">Discord</div>
+  <h2 class="section-title">Discord tools</h2>
+  <p class="section-desc">DiscordTools + Discord RAT in the panel after login.</p>
+  <div class="grid">
+    <div class="card">
+      <div class="icon"><i class="fab fa-discord"></i></div>
+      <h3>DiscordTools</h3>
+      <p>General Discord utilities and scripts for everyday ops.</p>
+      <span class="tag tag-free">In panel</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fas fa-bug"></i></div>
+      <h3>Discord RAT</h3>
+      <p>Dedicated RAT folder with versioned drops.</p>
+      <span class="tag tag-free">In panel</span>
+    </div>
+    <div class="card">
+      <div class="icon"><i class="fas fa-comments"></i></div>
+      <h3>Public chat</h3>
+      <p>Logged-in chat with the rest of the panel users.</p>
+      <span class="tag tag-free">In panel</span>
+    </div>
+  </div>
+</section>
+
+<div id="paid" style="padding:20px 24px">
+  <div class="paid-box">
+    <div>
+      <div class="section-label" style="margin-bottom:8px">Premium</div>
+      <h3 style="font-size:1.15rem;font-weight:800;margin-bottom:6px">Paid files</h3>
+      <p style="color:var(--muted);font-size:.88rem;max-width:420px;line-height:1.5">
+        Exclusive releases and paid packs are handled by the owner. Contact for access, custom work, or full unlocks.
+      </p>
+    </div>
+    <div>
+      <span class="tag tag-paid" style="font-size:.72rem;padding:6px 12px">Paid / custom</span>
+      <p style="font-size:.85rem;color:var(--purple3);font-weight:700;margin-top:10px">
+        dm <strong>777znt</strong> or <strong>777znts</strong>
+      </p>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-label">About</div>
+  <h2 class="section-title">Who runs this</h2>
+  <div class="about-grid" style="margin-top:24px">
+    <div class="about-card">
+      <h3>OpsecStudios</h3>
+      <p>Private control panel for tools distribution, chat, tickets, giveaways, and admin controls.</p>
+      <p>Access is session-key based. Subusers get the full tools library.</p>
+      <button class="btn btn-primary" style="margin-top:14px" onclick="openLogin()">Enter Panel</button>
+    </div>
+    <div class="about-card">
+      <h3>Owner</h3>
+      <p>This website is owned and operated by:</p>
+      <div class="owner-badge"><i class="fas fa-crown"></i> 777znt</div>
+      <p style="margin-top:14px">For registered accounts, paid files, or support — dm <strong style="color:var(--purple3)">777znts</strong>.</p>
+    </div>
+  </div>
+</section>
+
+<footer>OpsecStudios · Owner <strong>777znt</strong></footer>
+
+<div class="modal-bg" id="login-modal">
+  <div class="modal">
+    <h3>Enter Panel</h3>
+    <p>Paste your subuser session key or admin key.</p>
+    <div class="err" id="login-err">Invalid key</div>
+    <input type="password" id="login-key" placeholder="Session key..." autocomplete="off">
+    <div class="actions">
+      <button class="btn-sm btn-ghost" onclick="closeLogin()">Cancel</button>
+      <button class="btn-sm btn-primary" onclick="doLogin()">Enter</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openLogin() {
+  document.getElementById('login-modal').classList.add('show');
+  document.getElementById('login-key').focus();
+}
+function closeLogin() {
+  document.getElementById('login-modal').classList.remove('show');
+  document.getElementById('login-err').style.display = 'none';
+}
+async function doLogin() {
+  const key = document.getElementById('login-key').value.trim();
+  const err = document.getElementById('login-err');
+  err.style.display = 'none';
+  if (!key) { err.textContent = 'Key required'; err.style.display = 'block'; return; }
+  try {
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ key })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Login failed');
+    location.href = '/dashboard';
+  } catch (e) {
+    err.textContent = e.message;
+    err.style.display = 'block';
+  }
+}
+document.getElementById('login-key').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+fetch('/api/settings').then(r => r.json()).then(s => {
+  if (s.maintenance) {
+    const b = document.getElementById('maint-banner');
+    b.style.display = 'block';
+    b.textContent = s.maintenanceUntil
+      ? ('Maintenance until ' + new Date(s.maintenanceUntil).toLocaleString())
+      : 'Panel under maintenance';
+  }
+  if (s.newsTicker && s.newsTicker.length) {
+    document.getElementById('ticker-wrap').style.display = 'block';
+    document.getElementById('ticker-track').textContent = s.newsTicker.join('   ·   ') + '   ·   ';
+  }
+}).catch(() => {});
+</script>
+</body>
+</html>
